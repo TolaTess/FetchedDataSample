@@ -52,12 +52,12 @@ public class FetchJsonData extends AsyncTask<Void, Void, Void> {
             {
                 //use listview instead of the beloe shortcut
                 JSONObject jsonObject = (JSONObject) JA.get(i);
-                dataSingleParsed = "Name" + jsonObject.get("name") + "\n" +
-                                    "Hobbies" + jsonObject.get("hobbits") + "\n" +
-                                    "Age" + jsonObject.get("age") + "\n" +
-                                    "Country" + jsonObject.get("country") + "\n";
+                dataSingleParsed = "Name: " + jsonObject.get("name") + "\n" +
+                                    "Hobbies: " + jsonObject.get("hobbits") + "\n" +
+                                    "Age: " + jsonObject.get("age") + "\n" +
+                                    "Country: " + jsonObject.get("country") + "\n";
 
-                dataParsed = dataParsed + dataSingleParsed;
+                dataParsed = dataParsed + dataSingleParsed + "\n";
             }
 
 
