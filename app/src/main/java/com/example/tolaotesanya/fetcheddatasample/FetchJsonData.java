@@ -2,6 +2,10 @@ package com.example.tolaotesanya.fetcheddatasample;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +21,8 @@ import java.net.URL;
 public class FetchJsonData extends AsyncTask<Void, Void, Void> {
 
     String data = "";
+    String dataParsed = "";
+    String dataSingleParsed = "";
 
     //Background thread
     @Override
@@ -40,9 +46,28 @@ public class FetchJsonData extends AsyncTask<Void, Void, Void> {
                 data = data + line;
             }
 
+            //for Json file
+            JSONArray JA = new JSONArray(data);
+            for(int i = 0; i < JA.length(); i++)
+            {
+                //use listview instead of the beloe shortcut
+                JSONObject jsonObject = (JSONObject) JA.get(i);
+                dataSingleParsed = "Name" + jsonObject.get("name") + "\n" +
+                                    "Hobbies" + jsonObject.get("hobbits") + "\n" +
+                                    "Age" + jsonObject.get("age") + "\n" +
+                                    "Country" + jsonObject.get("country") + "\n";
+
+                dataParsed = dataParsed + dataSingleParsed;
+            }
+
+
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -53,5 +78,7 @@ public class FetchJsonData extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+
+        MainActivity.fetchedData.setText(this.dataParsed);
     }
 }
